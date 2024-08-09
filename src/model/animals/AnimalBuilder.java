@@ -5,7 +5,7 @@ import model.animals.pets.*;
 
 public class AnimalBuilder {
 
-    private int id;
+    private int id = 1;
 
     public Animal makeAnimal(String name, AnimalType type) {
         if (type.equals(AnimalType.camel)) {

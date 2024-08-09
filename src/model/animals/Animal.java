@@ -1,6 +1,7 @@
 package model.animals;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,15 +22,15 @@ public abstract class Animal {
 
     public abstract String voice();
 
-    public void addNewCommand(String commandName) {
-        if (commands == null) {
-            commands = new ArrayList<>();
-        }
-        commands.add(commandName);
-    }
+    // public void addNewCommand(String commandName) {
+    //     if (commands == null) {
+    //         commands = new ArrayList<>();
+    //     }
+    //     commands.add(commandName);
+    // }
 
     public void addCommandsAsList(String commandsList) {
-        String[] commandsListArray = commandsList.split(" ");
+        String[] commandsListArray = commandsList.split(", ");
         if (commands == null) {
             commands = new ArrayList<>();
         }
@@ -74,5 +75,22 @@ public abstract class Animal {
 
     public void setCommands(ArrayList<String> commands) {
         this.commands = commands;
+    }
+
+    public int getAge() {
+        return getPeriod(birthDate, LocalDate.now());
+    }
+
+    private int getPeriod(LocalDate birthDate, LocalDate now) {
+        if (birthDate == null) {
+            birthDate = LocalDate.of(2000, 1, 1);
+        }
+        Period period = Period.between(birthDate, now);
+        return period.getDays();
+    }
+
+    @Override
+    public String toString() {
+        return id + "\t" + name + "\t" + type + "\t" + birthDate + "\t" + commands;
     }
 }
