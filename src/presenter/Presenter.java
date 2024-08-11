@@ -1,7 +1,7 @@
 package presenter;
 
 import model.Service;
-import model.animals.AnimalType;
+import model.animals.enums.AnimalType;
 
 public class Presenter {
     private Service service;
@@ -32,5 +32,13 @@ public class Presenter {
 
     public void getListbyBirthDate() {
         service.getListbyBirthDate();
+    }
+
+    public void filterListbyAnimalType(AnimalType type){
+        service.filterListbyAnimalType(type);
+    }
+
+    public void makeSound (int animalID){
+        service.animalMakesSound(animalID);
     }
 }

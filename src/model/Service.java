@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 import model.animals.Animal;
 import model.animals.AnimalBuilder;
-import model.animals.AnimalType;
+import model.animals.enums.AnimalGroup;
+import model.animals.enums.AnimalType;
 import model.common_list.CommonList;
 
 public class Service {
@@ -45,6 +46,15 @@ public class Service {
 
     public String getListbyID() {
         commonList.sortByID();
+        return printList();
+    }
+
+    public String getListbyBirthDate() {
+        commonList.sortByAge();
+        return printList();
+    }
+
+    private String printList() {
         StringBuilder builder = new StringBuilder();
         builder.append("id\tname\ttype\tbirthDate\tcommands\n");
         for (Animal animal : commonList) {
@@ -54,18 +64,38 @@ public class Service {
         return builder.toString();
     }
 
-    public String getListbyBirthDate() {
-        commonList.sortByAge();
+    public String filterListbyAnimalType(AnimalType type) {
+        commonList.sortByID();
         StringBuilder builder = new StringBuilder();
+        builder.append("id\tname\ttype\tbirthDate\tcommands\n");
         for (Animal animal : commonList) {
-            builder.append(animal);
-            builder.append("\n");
+            if (animal.getType().equals(type)) {
+                builder.append(animal);
+                builder.append("\n");
+            }
         }
         return builder.toString();
     }
 
+    // public String filterListbyAnimalGroup(AnimalGroup group) {
+    //     commonList.sortByID();
+    //     StringBuilder builder = new StringBuilder();
+    //     builder.append("id\tname\ttype\tbirthDate\tcommands\n");
+    //     for (Animal animal : commonList) {
+    //         if (animal instanceof Animal) {
+    //             builder.append(animal);
+    //             builder.append("\n");
+    //         }
+    //     }
+    //     return builder.toString();
+    // }
+
     public int showTotalAmountOfAnimals() {
         return commonList.getTotalAmount();
+    }
+
+    public String animalMakesSound(int animalID) {
+        return commonList.getAnimalOnID(animalID).voice();
     }
 
     private LocalDate transferToDate(String dateString) {

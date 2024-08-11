@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import model.animals.enums.AnimalType;
+
 public abstract class Animal {
 
     int id;
@@ -21,13 +23,6 @@ public abstract class Animal {
     }
 
     public abstract String voice();
-
-    // public void addNewCommand(String commandName) {
-    //     if (commands == null) {
-    //         commands = new ArrayList<>();
-    //     }
-    //     commands.add(commandName);
-    // }
 
     public void addCommandsAsList(String commandsList) {
         String[] commandsListArray = commandsList.split(", ");

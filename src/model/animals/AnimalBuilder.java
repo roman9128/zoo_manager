@@ -1,5 +1,6 @@
 package model.animals;
 
+import model.animals.enums.AnimalType;
 import model.animals.pack_animals.*;
 import model.animals.pets.*;
 

@@ -1,6 +1,6 @@
 package model.animals.pets;
 
-import model.animals.AnimalType;
+import model.animals.enums.AnimalType;
 
 public class Dog extends Pet {
 

@@ -1,7 +1,7 @@
 package model.animals.pack_animals;
 
 import model.animals.Animal;
-import model.animals.AnimalType;
+import model.animals.enums.AnimalType;
 
 public abstract class PackAnimal extends Animal {
 

@@ -1,6 +1,6 @@
 package model.animals.pack_animals;
 
-import model.animals.AnimalType;
+import model.animals.enums.AnimalType;
 
 public class Horse extends PackAnimal {
 
