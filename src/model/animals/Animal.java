@@ -6,23 +6,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.animals.enums.AnimalType;
+import model.animals.enums.*;
 
 public abstract class Animal {
 
     int id;
     String name;
     AnimalType type;
+    AnimalGroup group;
     LocalDate birthDate;
     List<String> commands;
 
-    public Animal(int id, String name, AnimalType type) {
+    public Animal(int id, String name, AnimalType type, AnimalGroup group) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.group = group;
     }
 
     public abstract String voice();
+
+    public abstract String whatAreYouDoing();
 
     public void addCommandsAsList(String commandsList) {
         String[] commandsListArray = commandsList.split(", ");
@@ -56,6 +60,14 @@ public abstract class Animal {
         this.type = type;
     }
 
+    public AnimalGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(AnimalGroup group) {
+        this.group = group;
+    }
+
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -86,6 +98,6 @@ public abstract class Animal {
 
     @Override
     public String toString() {
-        return id + "\t" + name + "\t" + type + "\t" + birthDate + "\t" + commands;
+        return id + "\t" + name + "\t" + group + "\t" + type + "\t" + birthDate + "\t" + commands;
     }
 }

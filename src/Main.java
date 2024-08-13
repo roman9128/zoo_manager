@@ -1,4 +1,5 @@
 import model.Service;
+import model.animals.enums.AnimalGroup;
 import model.animals.enums.AnimalType;
 
 public class Main {
@@ -11,10 +12,13 @@ public class Main {
         service.addNewAnimal("Dolia", AnimalType.cat);
         service.setBirthDate(1, "2018-07-10");
         service.addNewAnimal("Linda", AnimalType.dog);
-        // System.out.println(service.getListbyID());
+        service.setBirthDate(2, "2010-05-10");
+        service.addNewAnimal("Donkey", AnimalType.donkey);
+        service.setBirthDate(3, "2010-05-10");
+        System.out.println(service.getListbyID());
         // System.out.println(service.showTotalAmountOfAnimals());
         // System.out.println(service.animalMakesSound(0));
         // System.out.println(service.animalMakesSound(2));
-        System.out.println(service.filterListbyAnimalType(AnimalType.cat));
+        // System.out.println(service.filterListbyAnimalGroup(AnimalGroup.pack_s));
     }
 }

@@ -4,8 +4,7 @@ import java.time.LocalDate;
 
 import model.animals.Animal;
 import model.animals.AnimalBuilder;
-import model.animals.enums.AnimalGroup;
-import model.animals.enums.AnimalType;
+import model.animals.enums.*;
 import model.common_list.CommonList;
 
 public class Service {
@@ -18,9 +17,13 @@ public class Service {
         animalBuilder = new AnimalBuilder();
     }
 
-    public void addNewAnimal(String name, AnimalType type) {
-        Animal animal = animalBuilder.makeAnimal(name, type);
-        commonList.addAnimal(animal);
+    public void addNewAnimal(String name, String type) {
+        try {
+            Animal animal = animalBuilder.makeAnimal(name, AnimalType.valueOf(type));
+            commonList.addAnimal(animal);
+        } catch (Exception e) {
+            System.out.println("There is no such type");
+        }
     }
 
     public void setBirthDate(int animalID, String birthDateString) {
@@ -35,10 +38,6 @@ public class Service {
     public String showCommands(int animalID) {
         return commonList.getAnimalOnID(animalID).getCommands().toString();
     }
-
-    // public void teachOneNewCommand(int animalID, String command) {
-    // commonList.getAnimalOnID(animalID).addNewCommand(command);
-    // }
 
     public void teachNewCommands(int animalID, String commandsList) {
         commonList.getAnimalOnID(animalID).addCommandsAsList(commandsList);
@@ -56,46 +55,64 @@ public class Service {
 
     private String printList() {
         StringBuilder builder = new StringBuilder();
-        builder.append("id\tname\ttype\tbirthDate\tcommands\n");
+        builder.append("id\tname\tgroup\ttype\tbirthDate\tcommands\n");
         for (Animal animal : commonList) {
             builder.append(animal);
             builder.append("\n");
         }
+        builder.append("Total amount of animals in this table: ");
+        builder.append(showTotalAmountOfAnimals());
         return builder.toString();
     }
 
-    public String filterListbyAnimalType(AnimalType type) {
+    public String filterListbyAnimalType(String type) {
         commonList.sortByID();
         StringBuilder builder = new StringBuilder();
-        builder.append("id\tname\ttype\tbirthDate\tcommands\n");
+        int count = 0;
+        builder.append("id\tname\tgroup\ttype\tbirthDate\tcommands\n");
         for (Animal animal : commonList) {
-            if (animal.getType().equals(type)) {
+            if (animal.getType().equals(AnimalType.valueOf(type))) {
+                count++;
                 builder.append(animal);
                 builder.append("\n");
             }
         }
+        builder.append("Found animals: ");
+        builder.append(count);
+        builder.append(" of ");
+        builder.append(showTotalAmountOfAnimals());
         return builder.toString();
     }
 
-    // public String filterListbyAnimalGroup(AnimalGroup group) {
-    //     commonList.sortByID();
-    //     StringBuilder builder = new StringBuilder();
-    //     builder.append("id\tname\ttype\tbirthDate\tcommands\n");
-    //     for (Animal animal : commonList) {
-    //         if (animal instanceof Animal) {
-    //             builder.append(animal);
-    //             builder.append("\n");
-    //         }
-    //     }
-    //     return builder.toString();
-    // }
+    public String filterListbyAnimalGroup(String group) {
+        commonList.sortByID();
+        int count = 0;
+        StringBuilder builder = new StringBuilder();
+        builder.append("id\tname\tgroup\ttype\tbirthDate\tcommands\n");
+        for (Animal animal : commonList) {
+            if (animal.getGroup().equals(AnimalGroup.valueOf(group))) {
+                count++;
+                builder.append(animal);
+                builder.append("\n");
+            }
+        }
+        builder.append("Found animals: ");
+        builder.append(count);
+        builder.append(" of ");
+        builder.append(showTotalAmountOfAnimals());
+        return builder.toString();
+    }
 
-    public int showTotalAmountOfAnimals() {
-        return commonList.getTotalAmount();
+    public String showTotalAmountOfAnimals() {
+        return Integer.toString(commonList.getTotalAmount());
     }
 
     public String animalMakesSound(int animalID) {
         return commonList.getAnimalOnID(animalID).voice();
+    }
+
+    public String animalDoes(int animalID) {
+        return commonList.getAnimalOnID(animalID).whatAreYouDoing();
     }
 
     private LocalDate transferToDate(String dateString) {

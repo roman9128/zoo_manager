@@ -1,25 +1,25 @@
 package presenter;
 
 import model.Service;
-import model.animals.enums.AnimalType;
+import view.View;
 
 public class Presenter {
     private Service service;
-    // private View view;
+    private View view;
 
-
-    public Presenter(/*View view*/){
-        //this.view = view;
+    public Presenter(View view) {
+        this.view = view;
         service = new Service();
     }
 
-    public void addNewAnimal(String name, AnimalType type) {
+    public void addNewAnimal(String name, String type) {
         service.addNewAnimal(name, type);
-        service.getListbyID();
+        getListbyID();
     }
 
     public void showCommands(int animalID) {
-        service.showCommands(animalID);
+        String answer = service.showCommands(animalID);
+        view.printAnswer(answer);
     }
 
     public void teachNewCommands(int animalID, String commandsList) {
@@ -27,18 +27,37 @@ public class Presenter {
     }
 
     public void getListbyID() {
-        service.getListbyID();
+        String answer = service.getListbyID();
+        view.printAnswer(answer);
     }
 
     public void getListbyBirthDate() {
-        service.getListbyBirthDate();
+        String answer = service.getListbyBirthDate();
+        view.printAnswer(answer);
     }
 
-    public void filterListbyAnimalType(AnimalType type){
-        service.filterListbyAnimalType(type);
+    public void filterListbyAnimalType(String type) {
+        String answer = service.filterListbyAnimalType(type);
+        view.printAnswer(answer);
     }
 
-    public void makeSound (int animalID){
-        service.animalMakesSound(animalID);
+    public void filterListbyAnimalGroup(String group) {
+        String answer = service.filterListbyAnimalGroup(group);
+        view.printAnswer(answer);
+    }
+
+    public void showTotalAmountOfAnimals() {
+        String answer = service.showTotalAmountOfAnimals();
+        view.printAnswer(answer);
+    }
+
+    public void makeSound(int animalID) {
+        String answer = service.animalMakesSound(animalID);
+        view.printAnswer(answer);
+    }
+
+    public void whatDoYouDo(int animalID) {
+        String answer = service.animalDoes(animalID);
+        view.printAnswer(answer);
     }
 }
