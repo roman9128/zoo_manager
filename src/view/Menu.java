@@ -3,18 +3,29 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.commands.AddAnimal;
+import view.commands.AddNewCommands;
 import view.commands.Command;
+import view.commands.FilterList;
+import view.commands.GetAdditionalInfo;
+import view.commands.GetCommonListByAge;
+import view.commands.GetCommonListByID;
+import view.commands.Quit;
+import view.commands.SetBirthDate;
 
 public class Menu {
     private List<Command> commands;
 
     public Menu(ConsoleUI consoleUI) {
         commands = new ArrayList<>();
-        commands.add(new AddStudent(consoleUI));
-        commands.add(new GetList(consoleUI));
-        commands.add(new SortByAge(consoleUI));
-        commands.add(new SortByName(consoleUI));
-        commands.add(new Exit(consoleUI));
+        commands.add(new AddAnimal(consoleUI));
+        commands.add(new SetBirthDate(consoleUI));
+        commands.add(new AddNewCommands(consoleUI));
+        commands.add(new GetCommonListByID(consoleUI));
+        commands.add(new GetCommonListByAge(consoleUI));
+        commands.add(new FilterList(consoleUI));
+        commands.add(new GetAdditionalInfo(consoleUI));
+        commands.add(new Quit(consoleUI));
     }
 
     public String showMenu() {

@@ -44,16 +44,44 @@ public class ConsoleUI implements View {
         work = false;
     }
 
-    public void addNewAnimal(String name, String type) {
-        presenter.addNewAnimal(name, type);
+    public void addNewAnimal() {
+        System.out.println("Enter animal's name: ");
+        String name = scanner.nextLine();
+        System.out.println(
+                "What type is this animal?\nEnter one of the following:\ncamel, donkey, horse, cat, dog, hamster");
+        String type = scanner.nextLine();
+        System.out.println("Do you know the birth date of this animal?");
+        System.out.println("Enter 'y' for 'yes' or anything else for 'no'");
+        String birthDate;
+        String choice = scanner.nextLine();
+        if (choice.equals("y")) {
+            System.out.println("Enter date as YYYY-MM-DD");
+            birthDate = scanner.nextLine();
+            presenter.addNewAnimal(name, type, birthDate);
+        } else {
+            presenter.addNewAnimal(name, type, "1000-01-01");
+        }
+        getListbyID();
     }
 
-    public void showCommands(int animalID) {
-        presenter.showCommands(animalID);
+    public void setBirthDate() {
+        getListbyID();
+        System.out.println("Whose birth date do you want to set?\nEnter ID: ");
+        String animalIDString = scanner.nextLine();
+        System.out.println("Enter date as YYYY-MM-DD");
+        String birthDateString = scanner.nextLine();
+        presenter.setBirthDate(animalIDString, birthDateString);
+        getListbyID();
     }
 
-    public void teachNewCommands(int animalID, String commandsList) {
-        presenter.teachNewCommands(animalID, commandsList);
+    public void addNewCommands() {
+        getListbyID();
+        System.out.println("Which animal has learned new commands?\nEnter ID: ");
+        String animalIDString = scanner.nextLine();
+        System.out.println("Enter new commands separated with comma and space (, )");
+        String commandsList = scanner.nextLine();
+        presenter.teachNewCommands(animalIDString, commandsList);
+        getListbyID();
     }
 
     public void getListbyID() {
@@ -64,24 +92,19 @@ public class ConsoleUI implements View {
         presenter.getListbyBirthDate();
     }
 
-    public void filterListbyAnimalType(String type) {
-        presenter.filterListbyAnimalType(type);
+    public void filterList() {
+        System.out.println("What kind of animals do you want to find?");
+        System.out.println("Enter one of the following:");
+        System.out.println("pets, pack_animals, camel, donkey, horse, cat, dog, hamster");
+        String animalKind = scanner.nextLine();
+        presenter.filterList(animalKind);
     }
 
-    public void filterListbyAnimalGroup(String group) {
-        presenter.filterListbyAnimalType(group);
-    }
-
-    public void showTotalAmountOfAnimals() {
-        presenter.showTotalAmountOfAnimals();
-    }
-
-    public void makeSound(int animalID) {
-        presenter.makeSound(animalID);
-    }
-
-    public void whatDoYouDo(int animalID) {
-        presenter.whatDoYouDo(animalID);
+    public void getAddinionalInfoAboutAnimal() {
+        getListbyID();
+        System.out.println("If you want to get more information about an animal\nEnter ID: ");
+        String animalIDString = scanner.nextLine();
+        presenter.getMoreInfo(animalIDString);
     }
 
     @Override

@@ -17,11 +17,12 @@ public abstract class Animal {
     LocalDate birthDate;
     List<String> commands;
 
-    public Animal(int id, String name, AnimalType type, AnimalGroup group) {
+    public Animal(int id, String name, AnimalType type, AnimalGroup group, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.group = group;
+        this.birthDate = birthDate;
     }
 
     public abstract String voice();
@@ -89,15 +90,30 @@ public abstract class Animal {
     }
 
     private int getPeriod(LocalDate birthDate, LocalDate now) {
-        if (birthDate == null) {
-            birthDate = LocalDate.of(2000, 1, 1);
-        }
         Period period = Period.between(birthDate, now);
         return period.getDays();
     }
 
     @Override
     public String toString() {
-        return id + "\t" + name + "\t" + group + "\t" + type + "\t" + birthDate + "\t" + commands;
+        StringBuilder builder = new StringBuilder();
+        builder.append(id);
+        builder.append("\t");
+        builder.append(name);
+        builder.append("\t");
+        builder.append(group);
+        builder.append("\t");
+        if (!group.equals(AnimalGroup.pack_animals)) {
+            builder.append("\t");
+        }
+        builder.append(type);
+        builder.append("\t");
+        builder.append(birthDate);
+        builder.append("\t");
+        if (birthDate == null) {
+            builder.append("\t");
+        }
+        builder.append(commands);
+        return builder.toString();
     }
 }

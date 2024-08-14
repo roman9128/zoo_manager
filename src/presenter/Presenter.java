@@ -1,5 +1,7 @@
 package presenter;
 
+import java.util.Arrays;
+
 import model.Service;
 import view.View;
 
@@ -12,18 +14,16 @@ public class Presenter {
         service = new Service();
     }
 
-    public void addNewAnimal(String name, String type) {
-        service.addNewAnimal(name, type);
-        getListbyID();
+    public void addNewAnimal(String name, String type, String birthDateString) {
+        service.addNewAnimal(name, type, birthDateString);
     }
 
-    public void showCommands(int animalID) {
-        String answer = service.showCommands(animalID);
-        view.printAnswer(answer);
+    public void setBirthDate(String animalIDString, String birthDateString) {
+        service.setBirthDate(animalIDString, birthDateString);
     }
 
-    public void teachNewCommands(int animalID, String commandsList) {
-        service.teachNewCommands(animalID, commandsList);
+    public void teachNewCommands(String animalIDString, String commandsList) {
+        service.teachNewCommands(animalIDString, commandsList);
     }
 
     public void getListbyID() {
@@ -36,28 +36,22 @@ public class Presenter {
         view.printAnswer(answer);
     }
 
-    public void filterListbyAnimalType(String type) {
-        String answer = service.filterListbyAnimalType(type);
+    public void filterList(String animalKind) {
+        String answer;
+        String[] animalGroup = new String[] { "pets", "pack_animals" };
+        String[] animalType = new String[] { "camel", "donkey", "horse", "cat", "dog", "hamster" };
+        if (Arrays.asList(animalGroup).contains(animalKind)) {
+            answer = service.filterListbyAnimalGroup(animalKind);
+        } else if (Arrays.asList(animalType).contains(animalKind)) {
+            answer = service.filterListbyAnimalType(animalKind);
+        } else {
+            answer = "No such type";
+        }
         view.printAnswer(answer);
     }
 
-    public void filterListbyAnimalGroup(String group) {
-        String answer = service.filterListbyAnimalGroup(group);
-        view.printAnswer(answer);
-    }
-
-    public void showTotalAmountOfAnimals() {
-        String answer = service.showTotalAmountOfAnimals();
-        view.printAnswer(answer);
-    }
-
-    public void makeSound(int animalID) {
-        String answer = service.animalMakesSound(animalID);
-        view.printAnswer(answer);
-    }
-
-    public void whatDoYouDo(int animalID) {
-        String answer = service.animalDoes(animalID);
+    public void getMoreInfo(String animalIDString) {
+        String answer = service.getMoreInfo(animalIDString);
         view.printAnswer(answer);
     }
 }

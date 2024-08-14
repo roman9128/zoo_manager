@@ -17,17 +17,19 @@ public class Service {
         animalBuilder = new AnimalBuilder();
     }
 
-    public void addNewAnimal(String name, String type) {
+    public void addNewAnimal(String name, String type, String birthDateString) {
         try {
-            Animal animal = animalBuilder.makeAnimal(name, AnimalType.valueOf(type));
+            LocalDate birthDate = transferToDate(birthDateString);
+            Animal animal = animalBuilder.makeAnimal(name, AnimalType.valueOf(type), birthDate);
             commonList.addAnimal(animal);
         } catch (Exception e) {
-            System.out.println("There is no such type");
+            System.out.println("Smth went wrong. Check the animal type you've entered & try again");
         }
     }
 
-    public void setBirthDate(int animalID, String birthDateString) {
+    public void setBirthDate(String animalIDString, String birthDateString) {
         try {
+            int animalID = transferID(animalIDString);
             LocalDate birthDate = transferToDate(birthDateString);
             commonList.getAnimalOnID(animalID).setBirthDate(birthDate);
         } catch (Exception e) {
@@ -35,12 +37,13 @@ public class Service {
         }
     }
 
-    public String showCommands(int animalID) {
-        return commonList.getAnimalOnID(animalID).getCommands().toString();
-    }
-
-    public void teachNewCommands(int animalID, String commandsList) {
-        commonList.getAnimalOnID(animalID).addCommandsAsList(commandsList);
+    public void teachNewCommands(String animalIDString, String commandsList) {
+        try {
+            int animalID = transferID(animalIDString);
+            commonList.getAnimalOnID(animalID).addCommandsAsList(commandsList);
+        } catch (Exception e) {
+            System.out.println("Try again");
+        }
     }
 
     public String getListbyID() {
@@ -55,13 +58,15 @@ public class Service {
 
     private String printList() {
         StringBuilder builder = new StringBuilder();
-        builder.append("id\tname\tgroup\ttype\tbirthDate\tcommands\n");
+        builder.append("\n________________________________________________________________________\n");
+        builder.append("id\tname\tgroup\t\ttype\tbirthDate\tcommands\n");
         for (Animal animal : commonList) {
             builder.append(animal);
             builder.append("\n");
         }
-        builder.append("Total amount of animals in this table: ");
+        builder.append("\nTotal amount of animals in this table: ");
         builder.append(showTotalAmountOfAnimals());
+        builder.append("\n________________________________________________________________________\n");
         return builder.toString();
     }
 
@@ -69,7 +74,8 @@ public class Service {
         commonList.sortByID();
         StringBuilder builder = new StringBuilder();
         int count = 0;
-        builder.append("id\tname\tgroup\ttype\tbirthDate\tcommands\n");
+        builder.append("\n________________________________________________________________________\n");
+        builder.append("id\tname\tgroup\t\ttype\tbirthDate\tcommands\n");
         for (Animal animal : commonList) {
             if (animal.getType().equals(AnimalType.valueOf(type))) {
                 count++;
@@ -81,6 +87,7 @@ public class Service {
         builder.append(count);
         builder.append(" of ");
         builder.append(showTotalAmountOfAnimals());
+        builder.append("\n________________________________________________________________________\n");
         return builder.toString();
     }
 
@@ -88,7 +95,8 @@ public class Service {
         commonList.sortByID();
         int count = 0;
         StringBuilder builder = new StringBuilder();
-        builder.append("id\tname\tgroup\ttype\tbirthDate\tcommands\n");
+        builder.append("\n________________________________________________________________________\n");
+        builder.append("id\tname\tgroup\t\ttype\tbirthDate\tcommands\n");
         for (Animal animal : commonList) {
             if (animal.getGroup().equals(AnimalGroup.valueOf(group))) {
                 count++;
@@ -100,6 +108,7 @@ public class Service {
         builder.append(count);
         builder.append(" of ");
         builder.append(showTotalAmountOfAnimals());
+        builder.append("\n________________________________________________________________________\n");
         return builder.toString();
     }
 
@@ -107,18 +116,35 @@ public class Service {
         return Integer.toString(commonList.getTotalAmount());
     }
 
-    public String animalMakesSound(int animalID) {
-        return commonList.getAnimalOnID(animalID).voice();
+    public String getMoreInfo(String animalIDString) {
+        try {
+            int animalID = transferID(animalIDString);
+            StringBuilder builder = new StringBuilder();
+            builder.append("\n");
+            builder.append("This animal could say ");
+            builder.append(commonList.getAnimalOnID(animalID).whatAreYouDoing());
+            builder.append(", but it only says ");
+            builder.append(commonList.getAnimalOnID(animalID).voice());
+            return builder.toString();
+        } catch (Exception e) {
+            return "There is no animal with this ID";
+        }
     }
 
-    public String animalDoes(int animalID) {
-        return commonList.getAnimalOnID(animalID).whatAreYouDoing();
+    private int transferID(String idString) {
+        int animalID;
+        if (checkChoice(idString)) {
+            animalID = Integer.parseInt(idString) - 1;
+        } else {
+            animalID = -1;
+        }
+        return animalID;
     }
 
     private LocalDate transferToDate(String dateString) {
         try {
             String[] dateArr = dateString.split("-");
-            int year = 2000;
+            int year = 1000;
             int month = 1;
             int day = 1;
             if (checkForInt(dateArr[0])) {
@@ -133,13 +159,21 @@ public class Service {
             LocalDate date_to_send = LocalDate.of(year, month, day);
             return date_to_send;
         } catch (Exception e) {
-            return null;
+            return LocalDate.of(1000, 1, 1);
         }
     }
 
     private boolean checkForInt(String string) {
         if (string.matches("[0-9]*")) {
             return true;
+        }
+        return false;
+    }
+
+    private boolean checkChoice(String choiceString) {
+        if (choiceString.matches("[0-9]*")) {
+            int choice = Integer.parseInt(choiceString);
+            return choice >= 1 && choice <= commonList.getTotalAmount();
         }
         return false;
     }
