@@ -26,7 +26,16 @@ public class CommonList implements Iterable<Animal> {
     }
 
     public Animal getAnimalOnID(int animalID) {
-        return animalList.get(animalID);
+        for (int i = 0; i < getTotalAmount(); i++) {
+            if (animalList.get(i).getId() == animalID) {
+                return animalList.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void removeAnimal(Animal animal) {
+        animalList.remove(animal);
     }
 
     public int getTotalAmount() {

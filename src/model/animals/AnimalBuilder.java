@@ -13,22 +13,21 @@ public class AnimalBuilder {
     public Animal makeAnimal(String name, AnimalType type, LocalDate birthDate) {
         if (type.equals(AnimalType.camel)) {
             return new Camel(id++, name, birthDate);
-        }
-        else if (type.equals(AnimalType.cat)) {
+        } else if (type.equals(AnimalType.cat)) {
             return new Cat(id++, name, birthDate);
-        }
-        else if (type.equals(AnimalType.dog)) {
+        } else if (type.equals(AnimalType.dog)) {
             return new Dog(id++, name, birthDate);
-        }
-        else if (type.equals(AnimalType.donkey)) {
+        } else if (type.equals(AnimalType.donkey)) {
             return new Donkey(id++, name, birthDate);
-        }
-        else if (type.equals(AnimalType.hamster)) {
+        } else if (type.equals(AnimalType.hamster)) {
             return new Hamster(id++, name, birthDate);
-        }
-        else if (type.equals(AnimalType.horse)) {
+        } else if (type.equals(AnimalType.horse)) {
             return new Horse(id++, name, birthDate);
         }
         return null;
+    }
+
+    public int getID() {
+        return id;
     }
 }

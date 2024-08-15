@@ -11,6 +11,7 @@ import view.commands.GetAdditionalInfo;
 import view.commands.GetCommonListByAge;
 import view.commands.GetCommonListByID;
 import view.commands.Quit;
+import view.commands.Remove;
 import view.commands.SetBirthDate;
 
 public class Menu {
@@ -25,6 +26,7 @@ public class Menu {
         commands.add(new GetCommonListByAge(consoleUI));
         commands.add(new FilterList(consoleUI));
         commands.add(new GetAdditionalInfo(consoleUI));
+        commands.add(new Remove(consoleUI));
         commands.add(new Quit(consoleUI));
     }
 

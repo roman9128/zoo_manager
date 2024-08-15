@@ -26,6 +26,10 @@ public class Presenter {
         service.teachNewCommands(animalIDString, commandsList);
     }
 
+    public void removeAnimal(String animalIDString){
+        service.removeAnimal(animalIDString);
+    }
+
     public void getListbyID() {
         String answer = service.getListbyID();
         view.printAnswer(answer);

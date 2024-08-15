@@ -84,6 +84,14 @@ public class ConsoleUI implements View {
         getListbyID();
     }
 
+    public void removeAnimal() {
+        getListbyID();
+        System.out.println("To remove an animal from the list\nEnter ID: ");
+        String animalIDString = scanner.nextLine();
+        presenter.removeAnimal(animalIDString);
+        getListbyID();
+    }
+
     public void getListbyID() {
         presenter.getListbyID();
     }

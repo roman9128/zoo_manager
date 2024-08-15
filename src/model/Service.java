@@ -23,7 +23,7 @@ public class Service {
             Animal animal = animalBuilder.makeAnimal(name, AnimalType.valueOf(type), birthDate);
             commonList.addAnimal(animal);
         } catch (Exception e) {
-            System.out.println("Smth went wrong. Check the animal type you've entered & try again");
+            System.out.println("\n-----> Smth went wrong.\n-----> Check the animal type you've entered & try again");
         }
     }
 
@@ -41,6 +41,15 @@ public class Service {
         try {
             int animalID = transferID(animalIDString);
             commonList.getAnimalOnID(animalID).addCommandsAsList(commandsList);
+        } catch (Exception e) {
+            System.out.println("Try again");
+        }
+    }
+
+    public void removeAnimal(String animalIDString){
+        try {
+            Animal animal = commonList.getAnimalOnID(transferID(animalIDString));
+            commonList.removeAnimal(animal);
         } catch (Exception e) {
             System.out.println("Try again");
         }
@@ -134,7 +143,7 @@ public class Service {
     private int transferID(String idString) {
         int animalID;
         if (checkChoice(idString)) {
-            animalID = Integer.parseInt(idString) - 1;
+            animalID = Integer.parseInt(idString);
         } else {
             animalID = -1;
         }
@@ -173,7 +182,7 @@ public class Service {
     private boolean checkChoice(String choiceString) {
         if (choiceString.matches("[0-9]*")) {
             int choice = Integer.parseInt(choiceString);
-            return choice >= 1 && choice <= commonList.getTotalAmount();
+            return choice >= 1 && choice <= animalBuilder.getID();
         }
         return false;
     }
