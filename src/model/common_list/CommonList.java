@@ -25,13 +25,13 @@ public class CommonList implements Iterable<Animal> {
         return animalList;
     }
 
-    public Animal getAnimalOnID(int animalID) {
+    public Animal getAnimalOnID(int animalID) throws Exception {
         for (int i = 0; i < getTotalAmount(); i++) {
             if (animalList.get(i).getId() == animalID) {
                 return animalList.get(i);
             }
         }
-        return null;
+        throw new RuntimeException("Animal not found");
     }
 
     public void removeAnimal(Animal animal) {

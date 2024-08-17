@@ -23,11 +23,14 @@ public class ConsoleUI implements View {
         while (work) {
             System.out.println(menu.showMenu());
             String choiceString = scanner.nextLine();
-            if (checkChoice(choiceString)) {
+            if (choiceString.equals("")) {
+                continue;
+            } else if (checkChoice(choiceString)) {
                 int choice = Integer.parseInt(choiceString);
                 menu.makeAction(choice);
-            } else
+            } else {
                 continue;
+            }
         }
     }
 

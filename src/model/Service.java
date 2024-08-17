@@ -132,7 +132,7 @@ public class Service {
             builder.append("\n");
             builder.append("This animal could say ");
             builder.append(commonList.getAnimalOnID(animalID).whatAreYouDoing());
-            builder.append(", but it only says ");
+            builder.append(" but it only says ");
             builder.append(commonList.getAnimalOnID(animalID).voice());
             return builder.toString();
         } catch (Exception e) {
@@ -168,7 +168,9 @@ public class Service {
             LocalDate date_to_send = LocalDate.of(year, month, day);
             return date_to_send;
         } catch (Exception e) {
-            return LocalDate.of(1000, 1, 1);
+            return LocalDate.of(1000, 1, 1); /* Если дата не указана или возникла какая-либо ошибка с ней,
+                                                                      то вместо заполнения даты рождения значением null,
+                                                                      я решил указывать 01.01.1000 */
         }
     }
 

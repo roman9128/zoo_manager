@@ -1,7 +1,6 @@
 package model.animals;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -83,15 +82,6 @@ public abstract class Animal {
 
     public void setCommands(ArrayList<String> commands) {
         this.commands = commands;
-    }
-
-    public int getAge() {
-        return getPeriod(birthDate, LocalDate.now());
-    }
-
-    private int getPeriod(LocalDate birthDate, LocalDate now) {
-        Period period = Period.between(birthDate, now);
-        return period.getDays();
     }
 
     @Override
