@@ -1,0 +1,58 @@
+Linux
+
+--------------------------------------------------------------------------------------------
+1. Использование команды cat
+-----------------------------
+
+rt@rt-VirtualBox:~$ mkdir finaltest     /// предварительно создаю новую директорию
+rt@rt-VirtualBox:~$ cd finaltest/
+
+rt@rt-VirtualBox:~/finaltest$ cat > pets.txt   /// создание файла
+dog cat hamster
+
+rt@rt-VirtualBox:~/finaltest$ cat pets.txt     /// просмотр файла
+dog cat hamster
+
+rt@rt-VirtualBox:~/finaltest$ cat > packanimals.txt   /// создание файла
+horse camel donkey
+
+rt@rt-VirtualBox:~/finaltest$ cat packanimals.txt     /// просмотр файла
+horse camel donkey
+
+rt@rt-VirtualBox:~/finaltest$ cat pets.txt packanimals.txt > human_friends.txt     /// объединение файлов
+rt@rt-VirtualBox:~/finaltest$ cat human_friends.txt     /// просмотр объединённого файла
+dog cat hamster
+horse camel donkey
+
+rt@rt-VirtualBox:~/finaltest$ ls     /// вывод содержимого директории
+human_friends.txt  packanimals.txt  pets.txt
+--------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------
+2. Создать новую директорию и переместить туда файл "Human Friends"
+-----------------------------
+
+rt@rt-VirtualBox:~/finaltest$ mkdir commonlist
+rt@rt-VirtualBox:~/finaltest$ mv human_friends.txt commonlist/
+--------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------
+3. Установить MySQL на вашу вычислительную машину
+-----------------------------
+
+rt@rt-VirtualBox:~$ sudo apt install mysql-server mysql-client
+rt@rt-VirtualBox:~$ sudo mysqladmin password -u root -p
+rt@rt-VirtualBox:~$ sudo mysql_secure_installation
+rt@rt-VirtualBox:~$ sudo mysql -u root -p     /// подключение к mysql
+--------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------
+4. Управление deb-пакетами
+-------------------
+
+rt@rt-VirtualBox:~$ apt download xpdf     /// скачиваю пакет
+rt@rt-VirtualBox:~$ sudo dpkg -i xpdf.deb     /// устанавливаю пакет (предварительно я его переименовал, чтобы сократить название)
+rt@rt-VirtualBox:~$ sudo apt-get -f install     /// устанавливаю зависимости
+rt@rt-VirtualBox:~$ sudo dpkg -r xpdf     /// удаляю пакет
+rt@rt-VirtualBox:~$ sudo dpkg --purge xpdf     /// удаляю пакет и связанные с ним данные
+
