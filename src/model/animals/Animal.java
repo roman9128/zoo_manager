@@ -98,11 +98,12 @@ public abstract class Animal {
         }
         builder.append(type);
         builder.append("\t");
-        builder.append(birthDate);
-        builder.append("\t");
-        if (birthDate == null) {
-            builder.append("\t");
+        if (birthDate.equals(LocalDate.of(1000, 1, 1))) {
+            builder.append("unknown date");
+        } else {
+            builder.append(birthDate);
         }
+        builder.append("\t");
         builder.append(commands);
         return builder.toString();
     }

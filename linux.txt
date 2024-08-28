@@ -55,4 +55,3 @@ rt@rt-VirtualBox:~$ sudo dpkg -i xpdf.deb     /// устанавливаю па�
 rt@rt-VirtualBox:~$ sudo apt-get -f install     /// устанавливаю зависимости
 rt@rt-VirtualBox:~$ sudo dpkg -r xpdf     /// удаляю пакет
 rt@rt-VirtualBox:~$ sudo dpkg --purge xpdf     /// удаляю пакет и связанные с ним данные
-
